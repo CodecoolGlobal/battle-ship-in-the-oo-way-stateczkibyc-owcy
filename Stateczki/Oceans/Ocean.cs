@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Stateczki
+namespace Stateczki.Oceans
 {
     class Ocean
     {
