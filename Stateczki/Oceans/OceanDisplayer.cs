@@ -20,10 +20,40 @@ namespace Stateczki
 
             char[] alphabet = InitAlphabet(rows);
             PrintHeaders(cols);
-            PrintGameRows(ocean, rows, cols, alphabet);
+            PrintGameRowsForPlay(ocean, rows, cols, alphabet);
         }
 
-        private static void PrintGameRows(Square[,] ocean, int rows, int cols, char[] alphabet)
+        public static void PrintOceanForPlacementPhase(Square[,] ocean)
+        {
+            var rows = ocean.GetLength(0);
+            var cols = ocean.GetLength(1);
+
+            char[] alphabet = InitAlphabet(rows);
+            PrintHeaders(cols);
+            PrintGameRowsForPlacement(ocean, rows, cols, alphabet);
+        }
+
+        private static void PrintGameRowsForPlay(Square[,] ocean, int rows, int cols, char[] alphabet)
+        {
+            for (int i = 0; i < rows; i++)
+            {
+                Console.Write("\n" + alphabet[i] + " | ");
+                for (int j = 0; j < cols; j++)
+                {
+                    var currentSquare = ocean[i, j];
+                    if (currentSquare.IsHit)
+                    {
+                        Console.Write(symbols["shoot"] + " | ");
+                    }
+                    else
+                    {
+                        Console.Write(symbols["empty"] + " | ");
+                    }
+                }
+            }
+        }
+
+        private static void PrintGameRowsForPlacement(Square[,] ocean, int rows, int cols, char[] alphabet)
         {
             for (int i = 0; i < rows; i++)
             {
