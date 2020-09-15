@@ -6,7 +6,7 @@ namespace Stateczki
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+           
         }
     }
 }

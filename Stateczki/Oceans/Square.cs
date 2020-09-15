@@ -6,5 +6,14 @@ namespace Stateczki
 {
     class Square
     {
+        public bool IsOccupied { get; set; }
+        public bool IsHit { get; set; }
+
+        public Square()
+        {
+            IsOccupied = false;
+            IsHit = false;
+        }
+
     }
 }
