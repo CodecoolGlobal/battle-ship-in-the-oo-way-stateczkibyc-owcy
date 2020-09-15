@@ -9,7 +9,7 @@ namespace Stateczki
         private static Dictionary<string, string> symbols = new Dictionary<string, string>
         {
             {"ship", "S" },
-            {"shoot", "X" },
+            {"hit", "X" },
             {"empty", "O" }
         };
 
@@ -43,7 +43,7 @@ namespace Stateczki
                     var currentSquare = ocean[i, j];
                     if (currentSquare.IsHit)
                     {
-                        Console.Write(symbols["shoot"] + " | ");
+                        Console.Write(symbols["hit"] + " | ");
                     }
                     else
                     {
@@ -95,7 +95,7 @@ namespace Stateczki
 
             for (var i = 0; i < alphabet.Length; i++)
             {
-                alphabet[i] = (char)(65 + i);
+                alphabet[i] = (char)(65 + i); // cast number to ASCII
             }
 
             return alphabet;
