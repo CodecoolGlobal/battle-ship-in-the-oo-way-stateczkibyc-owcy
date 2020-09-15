@@ -14,7 +14,8 @@ namespace Stateczki
                     exampleOcean[i, j] = new Square();
                 }
             }
-            OceanDisplayer.PrintOceanForPlay(exampleOcean);
+            exampleOcean[0, 0].IsOccupied = true;
+            OceanDisplayer.PrintOceanForPlacementPhase(exampleOcean);
         }
     }
 }
