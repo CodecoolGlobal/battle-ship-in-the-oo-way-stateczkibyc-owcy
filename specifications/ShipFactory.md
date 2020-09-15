@@ -1,4 +1,4 @@
-# ShipFactory
+#ShipFactory <<static>>
 ### Description
 ShipFactory is a class containing factory method for instatiating ShipImplementation objects
 
