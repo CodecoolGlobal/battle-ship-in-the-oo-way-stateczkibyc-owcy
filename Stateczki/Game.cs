@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Stateczki.Ships;
+using System;
 
 namespace Stateczki
 {
@@ -6,7 +7,7 @@ namespace Stateczki
     {
         static void Main(string[] args)
         {
-           
+            Console.WriteLine("Hi, Bob!");
         }
     }
 }
