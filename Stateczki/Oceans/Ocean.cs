@@ -12,6 +12,13 @@ namespace Stateczki.Oceans
         public Ocean(int size)
         {
             Squares = new Square[size, size];
+            for (var i = 0; i < Squares.GetLength(0); i++)
+            {
+                for (var j = 0; j < Squares.GetLength(1); j++)
+                {
+                    Squares[i, j] = new Square();
+                }
+            }
         }
 
         public bool IsMoveCorrect(Move move)
