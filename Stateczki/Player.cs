@@ -39,8 +39,7 @@ namespace Stateczki
                 {
                     areCoordinatesCorrect = true;
                 }
-
-                if (shootResult == ShootResult.AlreadyUsedCoordinates)
+                else if (shootResult == ShootResult.AlreadyUsedCoordinates)
                 {
                     Console.WriteLine("Coordinates already used!");
                 }
@@ -50,9 +49,6 @@ namespace Stateczki
                 }
 
             }
-
-
-
         }
     }
 }
