@@ -4,15 +4,21 @@ using System.Text;
 
 namespace Stateczki
 {
+    public enum SquareStatus 
+    {
+        Empty,
+        Ship,
+        HitShip,
+        SunkShip,
+        Miss
+    };
     class Square
     {
-        public bool IsOccupied { get; set; }
-        public bool IsHit { get; set; }
+        public SquareStatus Status;
 
         public Square()
         {
-            IsOccupied = false;
-            IsHit = false;
+            Status = SquareStatus.Empty;
         }
 
     }

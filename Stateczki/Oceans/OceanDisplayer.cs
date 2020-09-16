@@ -6,12 +6,6 @@ namespace Stateczki
 {
     static class OceanDisplayer
     {
-        private static Dictionary<string, string> symbols = new Dictionary<string, string>
-        {
-            {"ship", "S" },
-            {"hit", "X" },
-            {"empty", "O" }
-        };
 
         public static void PrintOceanForPlay(Square[,] ocean)
         {
@@ -21,16 +15,18 @@ namespace Stateczki
             char[] alphabet = InitAlphabet(rows);
             PrintHeaders(cols);
             PrintGameRowsForPlay(ocean, rows, cols, alphabet);
+            Console.WriteLine();
         }
 
-        public static void PrintOceanForPlacementPhase(Square[,] ocean)
+        public static void PrintOceanForCurrentPlayer(Square[,] ocean)
         {
             var rows = ocean.GetLength(0);
             var cols = ocean.GetLength(1);
 
             char[] alphabet = InitAlphabet(rows);
             PrintHeaders(cols);
-            PrintGameRowsForPlacement(ocean, rows, cols, alphabet);
+            PrintGameRowsForCurrentPlayer(ocean, rows, cols, alphabet);
+            Console.WriteLine();
         }
 
         private static void PrintGameRowsForPlay(Square[,] ocean, int rows, int cols, char[] alphabet)
@@ -41,19 +37,12 @@ namespace Stateczki
                 for (int j = 0; j < cols; j++)
                 {
                     var currentSquare = ocean[i, j];
-                    if (currentSquare.IsHit)
-                    {
-                        Console.Write(symbols["hit"] + " | ");
-                    }
-                    else
-                    {
-                        Console.Write(symbols["empty"] + " | ");
-                    }
+                    Console.Write(currentSquare.Status.ToSymbolForOpponent());
                 }
             }
         }
 
-        private static void PrintGameRowsForPlacement(Square[,] ocean, int rows, int cols, char[] alphabet)
+        private static void PrintGameRowsForCurrentPlayer(Square[,] ocean, int rows, int cols, char[] alphabet)
         {
             for (int i = 0; i < rows; i++)
             {
@@ -61,14 +50,7 @@ namespace Stateczki
                 for (int j = 0; j < cols; j++)
                 {
                     var currentSquare = ocean[i, j];
-                    if (currentSquare.IsOccupied)
-                    {
-                        Console.Write(symbols["ship"] + " | ");
-                    }
-                    else
-                    {
-                        Console.Write(symbols["empty"] + " | ");
-                    }
+                    Console.Write(currentSquare.Status.ToSymbolForCurrentPlayer());
                 }
             }
         }
@@ -86,6 +68,7 @@ namespace Stateczki
                 {
                     Console.Write(counterRowsNumbers + " |");
                 }
+
             }
         }
 
