@@ -23,7 +23,7 @@ namespace Stateczki
         }
 
 
-        public void HandleShipSank()
+        public void CheckShipSank()
         {
             if (Life == 0)
             {
@@ -41,6 +41,7 @@ namespace Stateczki
                 if (part.AreMyCoordinates(x, y))
                 {
                     // change status
+                    part.Status = SquareStatus.HitShip;
                     return true;
                 }
             }

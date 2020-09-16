@@ -19,14 +19,32 @@ namespace Stateczki
 
         public void Shoot()
         {
-            int x = 0;
-            int y = 0;
-
-            var shootResult = PlayerOcean.Shoot(x, y);
-            if (shootResult == ShootResult.WrongCoordinates)
+            // ask for coordinates in while loop
+            var areCoordinatesCorrect = false;
+            while (!areCoordinatesCorrect)
             {
+                int x = 1;
+                int y = 1;
+                var shootResult = PlayerOcean.Shoot(x, y);
+
+                if (shootResult == ShootResult.CorrectCoordinates)
+                {
+                    areCoordinatesCorrect = true;
+                }
+
+                if (shootResult == ShootResult.AlreadyUsedCoordinates)
+                {
+                    Console.WriteLine("Coordinates already used!");
+                }
+                else
+                {
+                    Console.WriteLine("Coordinates are wrong!");
+                }
 
             }
+
+
+
         }
     }
 }
