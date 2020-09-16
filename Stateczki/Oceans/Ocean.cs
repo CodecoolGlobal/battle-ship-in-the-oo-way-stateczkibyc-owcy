@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Stateczki.Oceans
 {
+
     class Ocean
     {
         public Square[,] Squares { get; }
@@ -16,9 +18,35 @@ namespace Stateczki.Oceans
             {
                 for (var j = 0; j < Squares.GetLength(1); j++)
                 {
-                    Squares[i, j] = new Square();
+                    Squares[i, j] = new Square(i, j);
                 }
             }
+
+            Ships = new List<Ship>();
+        }
+
+        internal ShootResult CheckShot(int x, int y)
+        {
+           // if (Squares[x, y].Status == SquareStatus.HitShip)
+           if (Squares[x, y].IsAlreadyHit())
+            {
+                return ShootResult.AlreadyUsedCoordinates;
+            }
+
+            // mark shoot and update status
+            foreach (var ship in Ships)
+            {
+                if(ship.CheckHit(x, y))
+                {
+                    ship.CheckShipSank();
+                    return ShootResult.CorrectCoordinates;
+                }
+
+            }
+
+            Squares[x, y].Status = SquareStatus.Miss;
+            return ShootResult.CorrectCoordinates;
+            
         }
 
         public bool IsMoveCorrect(Move move)

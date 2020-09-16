@@ -23,7 +23,7 @@ namespace Stateczki
         }
 
 
-        public void HandleShipSank()
+        public void CheckShipSank()
         {
             if (Life == 0)
             {
@@ -33,5 +33,20 @@ namespace Stateczki
                 }
             }
         }
+
+        public bool CheckHit(int x, int y)
+        {
+            foreach (var part in OccupiedPlaces)
+            {
+                if (part.AreMyCoordinates(x, y))
+                {
+                    // change status
+                    part.Status = SquareStatus.HitShip;
+                    return true;
+                }
+            }
+            return false;
+        }
+
     }
 }
