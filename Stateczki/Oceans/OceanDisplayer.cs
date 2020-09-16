@@ -72,7 +72,7 @@ namespace Stateczki
             }
         }
 
-        private static char[] InitAlphabet(int rows)
+        public static char[] InitAlphabet(int rows)
         {
             var alphabet = new char[rows];
 

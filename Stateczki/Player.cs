@@ -1,4 +1,5 @@
-﻿using Stateczki.Oceans;
+﻿using Stateczki.Moves;
+using Stateczki.Oceans;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -19,12 +20,33 @@ namespace Stateczki
 
         public void Shoot()
         {
-            int x = 0;
-            int y = 0;
-
-            var shootResult = PlayerOcean.Shoot(x, y);
-            if (shootResult == ShootResult.WrongCoordinates)
+            // ask for coordinates in while loop
+            var areCoordinatesCorrect = false;
+            while (!areCoordinatesCorrect)
             {
+                (int, int)? coordinates = CoordinatesValidator.Validate(PlayerOcean.Squares, GetMove.GetMoveString());
+
+                if (coordinates == null)
+                {
+                    continue;
+                }
+
+                int x = coordinates.Value.Item1;
+                int y = coordinates.Value.Item2;
+                var shootResult = PlayerOcean.CheckShot(x, y);
+
+                if (shootResult == ShootResult.CorrectCoordinates)
+                {
+                    areCoordinatesCorrect = true;
+                }
+                else if (shootResult == ShootResult.AlreadyUsedCoordinates)
+                {
+                    Console.WriteLine("Coordinates already used!");
+                }
+                else
+                {
+                    Console.WriteLine("Coordinates are wrong!");
+                }
 
             }
         }

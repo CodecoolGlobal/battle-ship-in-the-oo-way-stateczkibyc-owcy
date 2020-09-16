@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Stateczki.Oceans
@@ -20,15 +21,12 @@ namespace Stateczki.Oceans
                     Squares[i, j] = new Square(i, j);
                 }
             }
+
+            Ships = new List<Ship>();
         }
 
-        internal ShootResult Shoot(int x, int y)
+        internal ShootResult CheckShot(int x, int y)
         {
-            if (x < 0 || x > 9 || y < 0 || y > 9)
-            {
-                return ShootResult.WrongCoordinates;
-            }
-
            // if (Squares[x, y].Status == SquareStatus.HitShip)
            if (Squares[x, y].IsAlreadyHit())
             {
@@ -40,12 +38,13 @@ namespace Stateczki.Oceans
             {
                 if(ship.CheckHit(x, y))
                 {
-
+                    ship.CheckShipSank();
+                    return ShootResult.CorrectCoordinates;
                 }
 
             }
 
-
+            Squares[x, y].Status = SquareStatus.Miss;
             return ShootResult.CorrectCoordinates;
             
         }
