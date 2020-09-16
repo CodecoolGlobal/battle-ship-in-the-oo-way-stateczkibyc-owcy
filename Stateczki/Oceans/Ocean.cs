@@ -4,6 +4,7 @@ using System.Text;
 
 namespace Stateczki.Oceans
 {
+
     class Ocean
     {
         public Square[,] Squares { get; }
@@ -16,9 +17,37 @@ namespace Stateczki.Oceans
             {
                 for (var j = 0; j < Squares.GetLength(1); j++)
                 {
-                    Squares[i, j] = new Square();
+                    Squares[i, j] = new Square(i, j);
                 }
             }
+        }
+
+        internal ShootResult Shoot(int x, int y)
+        {
+            if (x < 0 || x > 9 || y < 0 || y > 9)
+            {
+                return ShootResult.WrongCoordinates;
+            }
+
+           // if (Squares[x, y].Status == SquareStatus.HitShip)
+           if (Squares[x, y].IsAlreadyHit())
+            {
+                return ShootResult.AlreadyUsedCoordinates;
+            }
+
+            // mark shoot and update status
+            foreach (var ship in Ships)
+            {
+                if(ship.CheckHit(x, y))
+                {
+
+                }
+
+            }
+
+
+            return ShootResult.CorrectCoordinates;
+            
         }
 
         public bool IsMoveCorrect(Move move)
