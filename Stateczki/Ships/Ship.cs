@@ -33,5 +33,19 @@ namespace Stateczki
                 }
             }
         }
+
+        public bool CheckHit(int x, int y)
+        {
+            foreach (var part in OccupiedPlaces)
+            {
+                if (part.AreMyCoordinates(x, y))
+                {
+                    // change status
+                    return true;
+                }
+            }
+            return false;
+        }
+
     }
 }

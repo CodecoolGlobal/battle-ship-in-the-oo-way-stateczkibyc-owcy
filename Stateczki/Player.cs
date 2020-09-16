@@ -16,5 +16,17 @@ namespace Stateczki
             Name = name;
             PlayerOcean = new Ocean(10); // fixed 10x10 board size.
         }
+
+        public void Shoot()
+        {
+            int x = 0;
+            int y = 0;
+
+            var shootResult = PlayerOcean.Shoot(x, y);
+            if (shootResult == ShootResult.WrongCoordinates)
+            {
+
+            }
+        }
     }
 }
