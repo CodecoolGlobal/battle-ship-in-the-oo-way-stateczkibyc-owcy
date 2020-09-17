@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Stateczki.Oceans;
 
 namespace Stateczki.Ships
 {
     class Battleship : Ship
     {
-        public Battleship(Square[] squares)
-            :base("Battleship", squares)
+        public Battleship(Ocean ocean, Square[] squares, ShipOrientation orientation)
+            :base(ocean, "Battleship", squares, orientation)
         {
             if (squares.Length != 4)
             {

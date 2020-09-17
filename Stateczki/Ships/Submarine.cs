@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Stateczki.Oceans;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -6,8 +7,8 @@ namespace Stateczki.Ships
 {
     class Submarine : Ship
     {
-        public Submarine(Square[] squares)
-            : base("Submarine", squares)
+        public Submarine(Ocean ocean, Square[] squares, ShipOrientation orientation)
+            : base(ocean, "Submarine", squares, orientation)
         {
             if (squares.Length != 3)
             {
