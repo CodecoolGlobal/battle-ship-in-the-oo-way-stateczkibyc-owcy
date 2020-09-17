@@ -8,9 +8,9 @@ namespace Stateczki
     {
         public static string ToSymbolForOpponent(this SquareStatus status) => status switch
         {
-            SquareStatus.Empty => "O | ",
+            SquareStatus.Empty => "~ | ",
             SquareStatus.HitShip => "X | ",
-            SquareStatus.Ship => "O | ",
+            SquareStatus.Ship => "0 | ",  // TODO Change to Tilda
             SquareStatus.SunkShip => "S | ",
             SquareStatus.Miss => "M | ",
             _ => throw new ArgumentOutOfRangeException(),
@@ -18,7 +18,7 @@ namespace Stateczki
 
         public static string ToSymbolForCurrentPlayer(this SquareStatus status) => status switch
         {
-            SquareStatus.Empty => "O | ",
+            SquareStatus.Empty => "~ | ",
             SquareStatus.HitShip => "X | ",
             SquareStatus.Ship => "V | ",
             SquareStatus.SunkShip => "S | ",
