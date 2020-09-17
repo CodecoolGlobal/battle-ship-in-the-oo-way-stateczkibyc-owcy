@@ -24,9 +24,9 @@ namespace Stateczki
                 {
                     Console.WriteLine("Wrong Coordinates! Try again.");
                 }
-                catch (Exception e)
+                catch (FormatException)
                 {
-                    Console.WriteLine(e);
+                    Console.WriteLine("Please enter coordinates in the following format: A1");
                 }
             return (null);
         }
