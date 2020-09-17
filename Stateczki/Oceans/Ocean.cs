@@ -94,5 +94,17 @@ namespace Stateczki.Oceans
                     break;
             }
         }
+
+        public bool CheckWin()
+        {
+            foreach (var ship in Ships)
+            {
+                if (!ship.IsShipSank())
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
     }
 }

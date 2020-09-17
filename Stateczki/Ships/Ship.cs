@@ -43,7 +43,8 @@ namespace Stateczki
             }
         }
 
-        public void CheckShipSank()
+       public void CheckShipSank()
+
         {
             if (Life == 0)
             {
@@ -53,6 +54,16 @@ namespace Stateczki
                 }
             }
         }
+
+        public bool IsShipSank()
+        {
+            if (Life == 0)
+            {
+                return true;
+            }
+            return false;
+        }
+
 
         public bool CheckHit(int x, int y)
         {
