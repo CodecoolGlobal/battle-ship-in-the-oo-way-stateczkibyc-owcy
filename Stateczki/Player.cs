@@ -10,13 +10,15 @@ namespace Stateczki
     class Player
     {
         public string Name { get;}
+        public bool IsAi { get; }
 
         public Ocean PlayerOcean { get; }
 
-        public Player(string name)
+        public Player(string name, bool isAi)
         {
             Name = name;
             PlayerOcean = new Ocean(10); // fixed 10x10 board size.
+            IsAi = isAi;
         }
 
         public void ReceiveShot()
@@ -25,7 +27,15 @@ namespace Stateczki
             var areCoordinatesCorrect = false;
             while (!areCoordinatesCorrect)
             {
-                (int, int)? coordinates = CoordinatesValidator.Validate(PlayerOcean.Squares, GetMove.GetMoveString());
+                (int, int)? coordinates = null;
+                if (!IsAi)
+                {
+                    coordinates = (new Random().Next(0, PlayerOcean.Squares.GetLength(0)), new Random().Next(0, PlayerOcean.Squares.GetLength(1)));
+                }
+                else
+                {
+                coordinates = CoordinatesValidator.Validate(PlayerOcean.Squares, GetMove.GetMoveString());
+                }
 
                 if (coordinates == null)
                 {
@@ -42,11 +52,17 @@ namespace Stateczki
                 }
                 else if (shootResult == ShootResult.AlreadyUsedCoordinates)
                 {
+                    if (IsAi)
+                    {
                     Console.WriteLine("Coordinates already used!");
+                    }
                 }
                 else
                 {
+                    if (IsAi)
+                    {
                     Console.WriteLine("Coordinates are wrong!");
+                    }
                 }
 
             }
