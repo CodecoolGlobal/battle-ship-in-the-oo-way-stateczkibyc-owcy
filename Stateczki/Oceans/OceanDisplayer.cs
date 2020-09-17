@@ -131,32 +131,16 @@ namespace Stateczki
         {
             foreach (Char c in output)
             {
-                switch (c)
+                Console.ForegroundColor = c switch
                 {
-                    case '~':
-                        Console.ForegroundColor = ConsoleColor.Blue; // color of water
-                        PrintColoredCharInline(c);
-                        break;
-                    case 'X':
-                        Console.ForegroundColor = ConsoleColor.Red; // color of hit
-                        PrintColoredCharInline(c);
-                        break;
-                    case 'S':
-                        Console.ForegroundColor = ConsoleColor.DarkMagenta; // color of sunken ship
-                        PrintColoredCharInline(c);
-                        break;
-                    case 'M':
-                        Console.ForegroundColor = ConsoleColor.DarkGray; // color of miss
-                        PrintColoredCharInline(c);
-                        break;
-                    case 'V':
-                        Console.ForegroundColor = ConsoleColor.Yellow; // color of allied vessel
-                        PrintColoredCharInline(c);
-                        break;
-                    default:
-                        Console.Write(c);
-                        break;
-                }
+                    '~' => ConsoleColor.Blue, // color of water
+                    'X' => ConsoleColor.Red, // color of hit
+                    'S' => ConsoleColor.DarkMagenta, // color of sunken ship
+                    'M' => ConsoleColor.DarkGray, // color of miss
+                    'V' => ConsoleColor.Yellow, // color of allied vessel
+                    _ => ConsoleColor.DarkGray
+                };
+                PrintColoredCharInline(c);
             }
         }
 
