@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Text;
 
 namespace Stateczki
@@ -56,11 +57,17 @@ namespace Stateczki
         {
             for (int i = 0; i < rows; i++)
             {
-                Console.Write("\n" + alphabet[i] + " | ");
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.Write("\n" + alphabet[i]);
+                Console.ResetColor();
+                Console.Write(" | ");
                 for (int j = 0; j < cols; j++)
                 {
                     var currentSquare = ocean[i, j];
+
+                    Console.BackgroundColor = ConsoleColor.DarkBlue;
                     Console.Write(currentSquare.Status.ToSymbolForOpponent());
+                    Console.ResetColor();
                 }
             }
         }
@@ -69,12 +76,19 @@ namespace Stateczki
         {
             for (int i = 0; i < rows; i++)
             {
-                Console.Write("\n" + alphabet[i] + " | ");
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.Write("\n" + alphabet[i]);
+                Console.ResetColor();
+                Console.Write(" | ");
+
                 for (int j = 0; j < cols; j++)
                 {
                     var currentSquare = ocean[i, j];
+                    Console.BackgroundColor = ConsoleColor.DarkBlue;
                     Console.Write(currentSquare.Status.ToSymbolForCurrentPlayer());
+                    Console.ResetColor();
                 }
+
             }
         }
 
@@ -83,15 +97,20 @@ namespace Stateczki
             Console.Write("# | ");
             for (int counterRowsNumbers = 1; counterRowsNumbers <= cols; counterRowsNumbers++)
             {
+                Console.ForegroundColor = ConsoleColor.Cyan;
                 if (counterRowsNumbers < 9)
                 {
-                    Console.Write(counterRowsNumbers + " | ");
+                    Console.Write(counterRowsNumbers);
+                    Console.ResetColor();
+                    Console.Write(" | ");
                 }
                 else
                 {
-                    Console.Write(counterRowsNumbers + " |");
+                    Console.Write(counterRowsNumbers);
+                    Console.ResetColor();
+                    Console.Write(" |");
                 }
-
+                Console.ResetColor();
             }
         }
 
