@@ -40,10 +40,14 @@ namespace Stateczki
         public static void PrintBothOceans(Player player1, Player player2)
         {
             Console.WriteLine("Your flotilla:");
+            Console.ForegroundColor = ConsoleColor.DarkGray;
             OceanDisplayer.PrintOceanForCurrentPlayer(player1.PlayerOcean.Squares);
             Console.WriteLine(Environment.NewLine, Environment.NewLine);
+            Console.ResetColor();
             Console.WriteLine("Enemy flotilla:");
+            Console.ForegroundColor = ConsoleColor.DarkGray;
             OceanDisplayer.PrintOceanForPlay(player2.PlayerOcean.Squares);
+            Console.ResetColor();
         }
 
         public static void PressAnyKey()
@@ -51,67 +55,6 @@ namespace Stateczki
             Console.WriteLine("Press any key to continue...");
             Console.ReadKey();
             Console.Clear();
-        }
-
-        private static void PrintGameRowsForPlay(Square[,] ocean, int rows, int cols, char[] alphabet)
-        {
-            for (int i = 0; i < rows; i++)
-            {
-                Console.ForegroundColor = ConsoleColor.Cyan;
-                Console.Write("\n" + alphabet[i]);
-                Console.ResetColor();
-                Console.Write(" | ");
-                for (int j = 0; j < cols; j++)
-                {
-                    var currentSquare = ocean[i, j];
-
-                    Console.BackgroundColor = ConsoleColor.DarkBlue;
-                    Console.Write(currentSquare.Status.ToSymbolForOpponent());
-                    Console.ResetColor();
-                }
-            }
-        }
-
-        private static void PrintGameRowsForCurrentPlayer(Square[,] ocean, int rows, int cols, char[] alphabet)
-        {
-            for (int i = 0; i < rows; i++)
-            {
-                Console.ForegroundColor = ConsoleColor.Cyan;
-                Console.Write("\n" + alphabet[i]);
-                Console.ResetColor();
-                Console.Write(" | ");
-
-                for (int j = 0; j < cols; j++)
-                {
-                    var currentSquare = ocean[i, j];
-                    Console.BackgroundColor = ConsoleColor.DarkBlue;
-                    Console.Write(currentSquare.Status.ToSymbolForCurrentPlayer());
-                    Console.ResetColor();
-                }
-
-            }
-        }
-
-        private static void PrintHeaders(int cols)
-        {
-            Console.Write("# | ");
-            for (int counterRowsNumbers = 1; counterRowsNumbers <= cols; counterRowsNumbers++)
-            {
-                Console.ForegroundColor = ConsoleColor.Cyan;
-                if (counterRowsNumbers < 9)
-                {
-                    Console.Write(counterRowsNumbers);
-                    Console.ResetColor();
-                    Console.Write(" | ");
-                }
-                else
-                {
-                    Console.Write(counterRowsNumbers);
-                    Console.ResetColor();
-                    Console.Write(" |");
-                }
-                Console.ResetColor();
-            }
         }
 
         public static char[] InitAlphabet(int rows)
@@ -124,6 +67,103 @@ namespace Stateczki
             }
 
             return alphabet;
+        }
+
+        private static void PrintGameRowsForPlay(Square[,] ocean, int rows, int cols, char[] alphabet)
+        {
+            for (int i = 0; i < rows; i++)
+            {
+                Console.ForegroundColor = ConsoleColor.DarkYellow;
+                Console.Write("\n" + alphabet[i]);
+                Console.ForegroundColor = ConsoleColor.DarkGray;
+                Console.Write(" | ");
+                for (int j = 0; j < cols; j++)
+                {
+                    var currentSquare = ocean[i, j];
+                    var stringToWrite = currentSquare.Status.ToSymbolForOpponent();
+                    PrintInColor(stringToWrite);
+                }
+            }
+        }
+
+        private static void PrintGameRowsForCurrentPlayer(Square[,] ocean, int rows, int cols, char[] alphabet)
+        {
+            for (int i = 0; i < rows; i++)
+            {
+                Console.ForegroundColor = ConsoleColor.DarkYellow;
+                Console.Write("\n" + alphabet[i]);
+                Console.ForegroundColor = ConsoleColor.DarkGray;
+                Console.Write(" | ");
+
+                for (int j = 0; j < cols; j++)
+                {
+                    var currentSquare = ocean[i, j];
+                    var stringToWrite = currentSquare.Status.ToSymbolForCurrentPlayer();
+                    PrintInColor(stringToWrite);
+                }
+
+            }
+        }
+
+        private static void PrintHeaders(int cols)
+        {
+            Console.Write("# | ");
+            for (int counterRowsNumbers = 1; counterRowsNumbers <= cols; counterRowsNumbers++)
+            {
+                Console.ForegroundColor = ConsoleColor.DarkYellow;
+                if (counterRowsNumbers < 9)
+                {
+                    Console.Write(counterRowsNumbers);
+                    Console.ForegroundColor = ConsoleColor.DarkGray;
+                    Console.Write(" | ");
+                }
+                else
+                {
+                    Console.Write(counterRowsNumbers);
+                    Console.ForegroundColor = ConsoleColor.DarkGray;
+                    Console.Write(" |");
+                }
+                Console.ForegroundColor = ConsoleColor.DarkGray;
+            }
+        }
+
+        private static void PrintInColor(string output)
+        {
+            foreach (Char c in output)
+            {
+                switch (c)
+                {
+                    case '~':
+                        Console.ForegroundColor = ConsoleColor.Blue; // color of water
+                        PrintColoredCharInline(c);
+                        break;
+                    case 'X':
+                        Console.ForegroundColor = ConsoleColor.Red; // color of hit
+                        PrintColoredCharInline(c);
+                        break;
+                    case 'S':
+                        Console.ForegroundColor = ConsoleColor.DarkMagenta; // color of sunken ship
+                        PrintColoredCharInline(c);
+                        break;
+                    case 'M':
+                        Console.ForegroundColor = ConsoleColor.DarkGray; // color of miss
+                        PrintColoredCharInline(c);
+                        break;
+                    case 'V':
+                        Console.ForegroundColor = ConsoleColor.Yellow; // color of allied vessel
+                        PrintColoredCharInline(c);
+                        break;
+                    default:
+                        Console.Write(c);
+                        break;
+                }
+            }
+        }
+
+        private static void PrintColoredCharInline(Char c)
+        {
+            Console.Write(c);
+            Console.ForegroundColor = ConsoleColor.DarkGray;
         }
     }
 }
