@@ -18,7 +18,7 @@ namespace Stateczki
             PlayerOcean = new Ocean(10); // fixed 10x10 board size.
         }
 
-        public void Shoot()
+        public void ReceiveShot()
         {
             // ask for coordinates in while loop
             var areCoordinatesCorrect = false;
