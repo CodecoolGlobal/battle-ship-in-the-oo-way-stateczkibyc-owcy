@@ -58,7 +58,7 @@ namespace Stateczki.Oceans
         {
         }
         
-        public void PlaceShip(Move move, Ship ship)
+        public void PlaceShip(Ship ship)
         {
             Ships.Add(ship);
             // TODO Place ship on board (Squares)
