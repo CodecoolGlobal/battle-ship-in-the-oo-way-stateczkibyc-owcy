@@ -73,21 +73,27 @@ namespace Stateczki
             int x = square.X;
             int y = square.Y;
             var squares = new Square[Size];
-            if (Orientation == ShipOrientation.Horizontal)
+            try
             {
-                for (var i = 0; i < Size; i++)
+                if (Orientation == ShipOrientation.Horizontal)
                 {
-                    squares[i] = ocean.Squares[x, y + i];
+                    for (var i = 0; i < Size; i++)
+                    {
+                        squares[i] = ocean.Squares[x, y + i];
+                    }
+                }
+                else
+                {
+                    for (var i = 0; i < Size; i++)
+                    {
+                        squares[i] = ocean.Squares[x + i, y];
+                    }
                 }
             }
-            else
+            catch (IndexOutOfRangeException)
             {
-                for (var i = 0; i < Size; i++)
-                {
-                    squares[i] = ocean.Squares[x + i, y];
-                }
+                throw new ShipFactoryException("Ship can't extend over the edge of the map");
             }
-
             return squares.ToList<Square>();
         }
 

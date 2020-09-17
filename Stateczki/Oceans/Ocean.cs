@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Stateczki.Ships;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -27,8 +28,8 @@ namespace Stateczki.Oceans
 
         internal ShootResult CheckShot(int x, int y)
         {
-           // if (Squares[x, y].Status == SquareStatus.HitShip)
-           if (Squares[x, y].IsAlreadyHit())
+            // if (Squares[x, y].Status == SquareStatus.HitShip)
+            if (Squares[x, y].IsAlreadyHit())
             {
                 return ShootResult.AlreadyUsedCoordinates;
             }
@@ -36,7 +37,7 @@ namespace Stateczki.Oceans
             // mark shoot and update status
             foreach (var ship in Ships)
             {
-                if(ship.CheckHit(x, y))
+                if (ship.CheckHit(x, y))
                 {
                     ship.CheckShipSank();
                     return ShootResult.CorrectCoordinates;
@@ -46,7 +47,7 @@ namespace Stateczki.Oceans
 
             Squares[x, y].Status = SquareStatus.Miss;
             return ShootResult.CorrectCoordinates;
-            
+
         }
 
         public bool IsMoveCorrect(Move move)
@@ -57,10 +58,41 @@ namespace Stateczki.Oceans
         public void MarkMove(Move move)
         {
         }
-        
-        public void PlaceShip(Ship ship)
+
+        public void PlaceTemplateShip(Ship ship)
         {
             Ships.Add(ship);
+        }
+        
+        public void PlaceShip((int, int)? coordinates, char orientation, string shipType)
+        {
+            ShipOrientation orientationEnum;
+            if (orientation == 'V')
+            {
+                orientationEnum = ShipOrientation.Vertical;
+            }
+            else
+            {
+                orientationEnum = ShipOrientation.Horizontal;
+            }
+            switch (shipType)
+            {
+                case "Battleship":
+                    Ships.Add(ShipFactory.NewBattleship(this, Squares[coordinates.Value.Item1, coordinates.Value.Item2], orientationEnum));
+                    break;
+                case "Cruiser":
+                    Ships.Add(ShipFactory.NewCruiser(this, Squares[coordinates.Value.Item1, coordinates.Value.Item2], orientationEnum));
+                    break;
+                case "Carrier":
+                    Ships.Add(ShipFactory.NewCarrier(this, Squares[coordinates.Value.Item1, coordinates.Value.Item2], orientationEnum));
+                    break;
+                case "Destroyer":
+                    Ships.Add(ShipFactory.NewDestroyer(this, Squares[coordinates.Value.Item1, coordinates.Value.Item2], orientationEnum));
+                    break;
+                case "Sumbarine":
+                    Ships.Add(ShipFactory.NewSubmarine(this, Squares[coordinates.Value.Item1, coordinates.Value.Item2], orientationEnum));
+                    break;
+            }
         }
     }
 }

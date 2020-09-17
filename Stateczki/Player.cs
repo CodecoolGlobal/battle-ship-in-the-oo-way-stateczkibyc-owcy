@@ -1,5 +1,6 @@
 ﻿using Stateczki.Moves;
 using Stateczki.Oceans;
+using Stateczki.Ships;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -49,6 +50,44 @@ namespace Stateczki
                 }
 
             }
+        }
+
+        public void PlaceShip(string shipType)
+        {
+            var areCoordinatesCorrect = false;
+            while (!areCoordinatesCorrect)
+            {
+                Console.Clear();
+                OceanDisplayer.PrintOceanForCurrentPlayer(PlayerOcean.Squares);
+                (int, int)? coordinates = CoordinatesValidator.Validate(PlayerOcean.Squares, GetMove.GetMoveString());
+                if (!coordinates.HasValue)
+                {
+                    System.Threading.Thread.Sleep(1000);
+                    continue;
+                }
+                Console.WriteLine("Enter V for vertical or H for horizontal");
+                char orientation = Char.ToUpper(Console.ReadKey().KeyChar);
+                if (orientation != 'V' && orientation != 'H')
+                {
+                    Console.Clear();
+                    Console.WriteLine("Please press valid key!");
+                    System.Threading.Thread.Sleep(1000);
+                    continue;
+                }
+                try
+                {
+                    PlayerOcean.PlaceShip(coordinates, orientation, shipType);
+                }
+                catch (ShipFactoryException e)
+                {
+                    Console.Clear();
+                    Console.WriteLine(e.Message);
+                    System.Threading.Thread.Sleep(1000);
+                    continue;
+                }
+                areCoordinatesCorrect = true;
+            }
+
         }
     }
 }
