@@ -361,3 +361,6 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 src/Codecool.FiveInARow/Properties/launchSettings.json
+
+#bart local
+bitmap.bmp
