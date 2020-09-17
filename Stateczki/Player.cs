@@ -30,7 +30,8 @@ namespace Stateczki
                 (int, int)? coordinates = null;
                 if (!IsAi)
                 {
-                    coordinates = (new Random().Next(0, PlayerOcean.Squares.GetLength(0)), new Random().Next(0, PlayerOcean.Squares.GetLength(1)));
+                    // TODO add better AI
+                    coordinates = GetAiMove();
                 }
                 else
                 {
@@ -103,7 +104,20 @@ namespace Stateczki
                 }
                 areCoordinatesCorrect = true;
             }
+        }
 
+        private (int, int)? GetAiMove()
+        {
+            (int, int)? coordinates = null;
+            foreach (Square square in PlayerOcean.Squares)
+            {
+                if (square.Status == SquareStatus.HitShip)
+                {
+                    coordinates = square.CheckNeighbours(PlayerOcean);
+                }
+            }
+
+            return coordinates;
         }
     }
 }

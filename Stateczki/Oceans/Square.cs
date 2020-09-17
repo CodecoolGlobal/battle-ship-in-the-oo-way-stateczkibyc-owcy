@@ -100,5 +100,53 @@ namespace Stateczki
 
             return false;
         }
+
+        public (int, int) ? CheckNeighbours(Ocean ocean)
+        {
+            int x = X;
+            int y = Y;
+            try
+            {
+                if (ocean.Squares[this.X - 1, this.Y].Status != SquareStatus.HitShip || ocean.Squares[this.X - 1, this.Y].Status != SquareStatus.Miss || ocean.Squares[this.X - 1, this.Y].Status != SquareStatus.SunkShip)
+                {
+                    return (x -1, y);
+                }
+            }
+            catch (IndexOutOfRangeException)
+            {
+            }
+            try
+            {
+                if (ocean.Squares[this.X + 1, this.Y].Status != SquareStatus.HitShip && ocean.Squares[this.X + 1, this.Y].Status != SquareStatus.Miss && ocean.Squares[this.X + 1, this.Y].Status != SquareStatus.SunkShip)
+                {
+                    return (x + 1, y);
+                }
+            }
+            catch (IndexOutOfRangeException)
+            {
+            }
+            try
+            {
+                if (ocean.Squares[this.X, this.Y - 1].Status != SquareStatus.HitShip && ocean.Squares[this.X, this.Y - 1].Status != SquareStatus.Miss && ocean.Squares[this.X, this.Y - 1].Status != SquareStatus.SunkShip)
+                {
+                    return (x, y - 1);
+                }
+            }
+            catch (IndexOutOfRangeException)
+            {
+            }
+            try
+            {
+                if (ocean.Squares[this.X, this.Y + 1].Status != SquareStatus.HitShip && ocean.Squares[this.X, this.Y + 1].Status != SquareStatus.Miss && ocean.Squares[this.X, this.Y + 1].Status != SquareStatus.SunkShip)
+                {
+                    return (x, y + 1);
+                }
+            }
+            catch (IndexOutOfRangeException)
+            {
+            }
+
+            return null;
+        }
     }
 }
