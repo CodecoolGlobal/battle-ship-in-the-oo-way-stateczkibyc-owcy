@@ -38,7 +38,7 @@ namespace Stateczki.Oceans
             {
                 if(ship.CheckHit(x, y))
                 {
-                    ship.CheckShipSank();
+                    ship.HandleShipSank();
                     return ShootResult.CorrectCoordinates;
                 }
 
@@ -62,6 +62,18 @@ namespace Stateczki.Oceans
         {
             Ships.Add(ship);
             // TODO Place ship on board (Squares)
+        }
+
+        public bool CheckWin()
+        {
+            foreach (var ship in Ships)
+            {
+                if (!ship.IsShipSank())
+                {
+                    return false;
+                }
+            }
+            return true;
         }
     }
 }
