@@ -25,6 +25,11 @@ namespace Stateczki
                 Console.Clear();
                 OceanDisplayer.PrintBothOceans(player1, player2);
                 OceanDisplayer.PressAnyKey();
+                if (player2.PlayerOcean.CheckWin())
+                {
+                    Console.WriteLine($"{player1.Name} won!");
+                    Environment.Exit(1);
+                }
                 
                 var SwitchedPlayers = SwitchPlayers(player1, player2); // REFACTOR PLEASE
                 player1 = SwitchedPlayers.Item1;
