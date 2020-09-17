@@ -7,13 +7,9 @@ namespace Stateczki.Ships
 {
     class Battleship : Ship
     {
-        public Battleship(Ocean ocean, Square[] squares, ShipOrientation orientation)
-            :base(ocean, "Battleship", squares, orientation)
+        public Battleship(Ocean ocean, Square square, ShipOrientation orientation)
+            :base(ocean, "Battleship", square, orientation)
         {
-            if (squares.Length != 4)
-            {
-                throw new ShipFactoryException("A Battleship needs to occupy exactly 4 Squares");
-            }
         }
     }
 }

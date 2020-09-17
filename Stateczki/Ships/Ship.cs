@@ -2,6 +2,7 @@
 using Stateczki.Ships;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 
@@ -20,7 +21,7 @@ namespace Stateczki
         public ShipOrientation Orientation { get; }
 
         public List<Square> OccupiedPlaces { get; private set; }
-        public Ship(Ocean ocean, string shipType, Square[] squares, ShipOrientation orientation)
+        public Ship(Ocean ocean, string shipType, Square square, ShipOrientation orientation)
         {
             ShipType = shipType;
             Orientation = orientation;
@@ -28,25 +29,19 @@ namespace Stateczki
             {
                 "Destroyer" => 2,
                 "Cruiser" => 3,
-                "Submarine" => 4,
+                "Submarine" => 3,
                 "Battleship" => 4,
                 "Carrier" => 5,
                 _ => 0
             };
-            OccupiedPlaces = new List<Square>(squares);
 
-            OccupiedPlaces.ForEach(delegate (Square square)
+            OccupiedPlaces = GenerateOccupiedPlaces(square, ocean);
+            ValidateOccupiedPlaces(OccupiedPlaces, ocean);
+            foreach (var sq in OccupiedPlaces)
             {
-                if (square.HasOccupiedNeighbours(ocean)) { 
-                    throw new ShipFactoryException("The neighbourhood is occupied!"); 
-                }
-            });
-            foreach (var square in OccupiedPlaces)
-            {
-                square.Status = SquareStatus.Ship;
+                sq.Status = SquareStatus.Ship;
             }
         }
-
 
         public void CheckShipSank()
         {
@@ -73,5 +68,38 @@ namespace Stateczki
             return false;
         }
 
+        private List<Square> GenerateOccupiedPlaces(Square square, Ocean ocean)
+        {
+            int x = square.X;
+            int y = square.Y;
+            var squares = new Square[Size];
+            if (Orientation == ShipOrientation.Horizontal)
+            {
+                for (var i = 0; i < Size; i++)
+                {
+                    squares[i] = ocean.Squares[x, y + i];
+                }
+            }
+            else
+            {
+                for (var i = 0; i < Size; i++)
+                {
+                    squares[i] = ocean.Squares[x + i, y];
+                }
+            }
+
+            return squares.ToList<Square>();
+        }
+
+        private void ValidateOccupiedPlaces(List<Square> squares, Ocean ocean)
+        {
+            foreach (var sq in squares)
+            {
+                if (sq.HasOccupiedNeighbours(ocean))
+                {
+                    throw new ShipFactoryException("The neighbourhood is occupied!");
+                }
+            }
+        }
     }
 }

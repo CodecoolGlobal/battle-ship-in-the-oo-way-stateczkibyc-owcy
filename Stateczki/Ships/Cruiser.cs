@@ -7,13 +7,9 @@ namespace Stateczki.Ships
 {
     class Cruiser : Ship
     {
-        public Cruiser(Ocean ocean, Square[] squares, ShipOrientation orientation)
-            : base(ocean, "Cruiser", squares, orientation)
+        public Cruiser(Ocean ocean, Square square, ShipOrientation orientation)
+            : base(ocean, "Cruiser", square, orientation)
         {
-            if (squares.Length != 3)
-            {
-                throw new ShipFactoryException("A Cruiser needs to occupy exactly 3 Squares");
-            }
         }
     }
 }
