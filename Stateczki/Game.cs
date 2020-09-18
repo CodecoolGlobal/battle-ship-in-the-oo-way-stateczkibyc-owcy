@@ -1,5 +1,6 @@
 ﻿using Stateczki.Ships;
 using System;
+using System.Net;
 
 namespace Stateczki
 {
@@ -9,7 +10,7 @@ namespace Stateczki
         {
             // Init players, boards, ships
             Player bob = new Player("bob");
-            ShipPlacer.PlaceTestShipsLayout1(bob.PlayerOcean);
+            PlaceShipsForPlayers(bob);
             Player adam = new Player("adam");
             ShipPlacer.PlaceTestShipsLayout2(adam.PlayerOcean);
 
@@ -55,6 +56,15 @@ namespace Stateczki
             player1 = player2;
             player2 = temp;
             return (player1, player2);
+        }
+
+        static internal void PlaceShipsForPlayers(Player player)
+        {
+            player.PlaceShip("Carrier");
+            player.PlaceShip("Battleship");
+            player.PlaceShip("Cruiser");
+            player.PlaceShip("Sumbarine");
+            player.PlaceShip("Destroyer");
         }
 
     }

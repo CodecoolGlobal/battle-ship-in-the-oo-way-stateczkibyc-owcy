@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Stateczki.Oceans;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -6,25 +7,25 @@ namespace Stateczki.Ships
 {
     static class ShipFactory
     {
-        public static Ship NewCarrier(Square[] squares)
+        public static Ship NewCarrier(Ocean ocean, Square square, ShipOrientation orientation)
         {
-            return new Carrier(squares);
+            return new Carrier(ocean, square, orientation);
         }
-        public static Ship NewBattleship(Square[] squares)
+        public static Ship NewBattleship(Ocean ocean, Square square, ShipOrientation orientation)
         {
-            return new Battleship(squares);
+            return new Battleship(ocean, square, orientation);
         }
-        public static Ship NewCruiser(Square[] squares)
+        public static Ship NewCruiser(Ocean ocean, Square square, ShipOrientation orientation)
         {
-            return new Cruiser(squares);
+            return new Cruiser(ocean, square, orientation);
         }
-        public static Ship NewSubmarine(Square[] squares)
+        public static Ship NewSubmarine(Ocean ocean, Square square, ShipOrientation orientation)
         {
-            return new Submarine(squares);
+            return new Submarine(ocean, square, orientation);
         }
-        public static Ship NewDestroyer(Square[] squares)
+        public static Ship NewDestroyer(Ocean ocean, Square square, ShipOrientation orientation)
         {
-            return new Destroyer(squares);
+            return new Destroyer(ocean, square, orientation);
         }
 
     }

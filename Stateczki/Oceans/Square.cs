@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Stateczki.Oceans;
+using Stateczki.Ships;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -19,18 +21,19 @@ namespace Stateczki
         AlreadyUsedCoordinates,
         CorrectCoordinates
     }
+
     class Square
     {
         public SquareStatus Status;
 
-        public int x { get; }
-        public int y { get; }
+        public int X { get; }
+        public int Y { get; }
 
         public Square(int x, int y)
         {
             Status = SquareStatus.Empty;
-            this.x = x;
-            this.y = y;
+            this.X = x;
+            this.Y = y;
         }
 
         public bool IsAlreadyHit()
@@ -45,10 +48,56 @@ namespace Stateczki
 
         public bool AreMyCoordinates(int x, int y)
         {
-            if (this.x == x && this.y == y)
+            if (this.X == x && this.Y == y)
             {
                 return true;
             }
+            return false;
+        }
+
+        public bool HasOccupiedNeighbours(Ocean ocean)
+        {
+            try
+            {
+                if (ocean.Squares[this.X - 1, this.Y].Status != SquareStatus.Empty)
+                {
+                    return true;
+                }
+            }
+            catch (IndexOutOfRangeException)
+            {
+            }
+            try
+            {
+                if (ocean.Squares[this.X + 1, this.Y].Status != SquareStatus.Empty)
+                {
+                    return true;
+                }
+            }
+            catch (IndexOutOfRangeException)
+            {
+            }
+            try
+            {
+                if (ocean.Squares[this.X, this.Y - 1].Status != SquareStatus.Empty)
+                {
+                    return true;
+                }
+            }
+            catch (IndexOutOfRangeException)
+            {
+            }
+            try
+            {
+                if (ocean.Squares[this.X, this.Y + 1].Status != SquareStatus.Empty)
+                {
+                    return true;
+                }
+            }
+            catch (IndexOutOfRangeException)
+            {
+            }
+
             return false;
         }
     }

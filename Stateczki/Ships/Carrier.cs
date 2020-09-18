@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Stateczki.Oceans;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -6,13 +7,9 @@ namespace Stateczki.Ships
 {
     class Carrier : Ship
     {
-        public Carrier(Square[] squares)
-            :base("Carrier", squares)
+        public Carrier(Ocean ocean, Square square, ShipOrientation orientation)
+            :base(ocean, "Carrier", square, orientation)
         {
-            if (squares.Length != 5)
-            {
-                throw new ShipFactoryException("A Carrier needs to occupy exactly 5 Squares");
-            }
         }
     }
 }

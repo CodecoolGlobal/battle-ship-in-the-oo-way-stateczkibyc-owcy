@@ -26,7 +26,7 @@ namespace Stateczki
                 }
                 catch (FormatException)
                 {
-                    Console.WriteLine("Please enter coordinates in the following format: A1");
+                    Console.WriteLine("Please enter coordinates in the following format: \"A1\" or \"1a\"");
                 }
             return (null);
         }
