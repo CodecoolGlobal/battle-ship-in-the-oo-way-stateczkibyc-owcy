@@ -30,7 +30,7 @@ namespace Stateczki
             var areCoordinatesCorrect = false;
             while (!areCoordinatesCorrect)
             {
-                (int, int)? coordinates = null;
+                (int, int)? coordinates = null;  // TODO create clas or BETTER: struct Coordinates.cs
                 if (!IsAi)
                 {
                     // TODO add better AI

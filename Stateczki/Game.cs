@@ -18,7 +18,7 @@ namespace Stateczki
             var noWinner = true;
             var currentPlayer = bob;
             var nextPlayer = adam;
-            while(noWinner)
+            while(noWinner) // TODO use do while (check win condition)
             {
                 Console.Clear();
                 OceanDisplayer.PrintGreeting(currentPlayer);
@@ -71,7 +71,7 @@ namespace Stateczki
             return (player1, player2);
         }
 
-        static internal void PlaceShipsForPlayers(Player player)
+        static internal void PlaceShipsForPlayers(Player player) // TODO przenieść do klasy Player
         {
             player.PlaceShip("Carrier");
             player.PlaceShip("Battleship");
