@@ -109,7 +109,7 @@ namespace Stateczki
             {
                 if (ocean.Squares[this.X - 1, this.Y].Status != SquareStatus.HitShip || ocean.Squares[this.X - 1, this.Y].Status != SquareStatus.Miss || ocean.Squares[this.X - 1, this.Y].Status != SquareStatus.SunkShip)
                 {
-                    return (x -1, y);
+                    return (x - 1, y);
                 }
             }
             catch (IndexOutOfRangeException)

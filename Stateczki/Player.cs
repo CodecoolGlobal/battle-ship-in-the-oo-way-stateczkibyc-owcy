@@ -12,6 +12,8 @@ namespace Stateczki
         public string Name { get;}
         public bool IsAi { get; }
 
+        private (int, int)? lastHit { get; set; }
+
         public Ocean PlayerOcean { get; }
 
         public Player(string name, bool isAi)
@@ -19,6 +21,7 @@ namespace Stateczki
             Name = name;
             PlayerOcean = new Ocean(10); // fixed 10x10 board size.
             IsAi = isAi;
+            lastHit = null;
         }
 
         public void ReceiveShot()
@@ -31,7 +34,14 @@ namespace Stateczki
                 if (!IsAi)
                 {
                     // TODO add better AI
-                    coordinates = GetAiMove();
+                    if (lastHit != null)
+                    {
+                        coordinates = GetAiMove() ?? (new Random().Next(0, PlayerOcean.Squares.GetLength(0)), new Random().Next(0, PlayerOcean.Squares.GetLength(1)));
+                    }
+                    else
+                    {
+                    coordinates = (new Random().Next(0, PlayerOcean.Squares.GetLength(0)), new Random().Next(0, PlayerOcean.Squares.GetLength(1)));
+                    }
                 }
                 else
                 {
@@ -49,6 +59,10 @@ namespace Stateczki
 
                 if (shootResult == ShootResult.CorrectCoordinates)
                 {
+                    if (PlayerOcean.Squares[x, y].Status == SquareStatus.HitShip)
+                    {
+                        lastHit = coordinates;
+                    }
                     areCoordinatesCorrect = true;
                 }
                 else if (shootResult == ShootResult.AlreadyUsedCoordinates)
@@ -109,12 +123,11 @@ namespace Stateczki
         private (int, int)? GetAiMove()
         {
             (int, int)? coordinates = null;
-            foreach (Square square in PlayerOcean.Squares)
+            if (lastHit != null)
             {
-                if (square.Status == SquareStatus.HitShip)
-                {
-                    coordinates = square.CheckNeighbours(PlayerOcean);
-                }
+                int x = lastHit.Value.Item1;
+                int y = lastHit.Value.Item2;
+                coordinates = PlayerOcean.Squares[x, y].CheckNeighbours(PlayerOcean);
             }
 
             return coordinates;
