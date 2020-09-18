@@ -9,32 +9,45 @@ namespace Stateczki
         static void Main(string[] args)
         {
             // Init players, boards, ships
-            Player bob = new Player("bob");
+            Player bob = new Player("bob", false);  // false for human, true for AI
             PlaceShipsForPlayers(bob);
-            Player adam = new Player("adam");
+            Player adam = new Player("adam", true);
             ShipPlacer.PlaceTestShipsLayout2(adam.PlayerOcean);
 
             // Start game
             var noWinner = true;
-            var player1 = bob;
-            var player2 = adam;
+            var currentPlayer = bob;
+            var nextPlayer = adam;
             while(noWinner)
             {
-                OceanDisplayer.PrintGreeting(player1);
-                OceanDisplayer.PrintBothOceans(player1, player2);
-                player2.ReceiveShot();
                 Console.Clear();
-                OceanDisplayer.PrintBothOceans(player1, player2);
-                OceanDisplayer.PressAnyKey();
-                if (player2.PlayerOcean.CheckWin())
+                OceanDisplayer.PrintGreeting(currentPlayer);
+                if (!currentPlayer.IsAi)
                 {
-                    Console.WriteLine($"{player1.Name} won!");
+                    OceanDisplayer.PrintBothOceans(currentPlayer, nextPlayer);
+                    nextPlayer.ReceiveShot();
+                    Console.Clear();
+                    OceanDisplayer.PrintBothOceans(currentPlayer, nextPlayer);
+                    OceanDisplayer.PressAnyKey();
+                }
+                else
+                {
+                    OceanDisplayer.PrintOceanForCurrentPlayer(nextPlayer.PlayerOcean.Squares);
+                    System.Threading.Thread.Sleep(500);
+                    nextPlayer.ReceiveShot();
+                    Console.Clear();
+                    OceanDisplayer.PrintOceanForCurrentPlayer(nextPlayer.PlayerOcean.Squares);
+                    System.Threading.Thread.Sleep(1000);
+                }
+                if (nextPlayer.PlayerOcean.CheckLoose())
+                {
+                    Console.WriteLine($"{currentPlayer.Name} won!");
                     Environment.Exit(1);
                 }
                 
-                var SwitchedPlayers = SwitchPlayers(player1, player2); // REFACTOR PLEASE
-                player1 = SwitchedPlayers.Item1;
-                player2 = SwitchedPlayers.Item2;
+                var SwitchedPlayers = SwitchPlayers(currentPlayer, nextPlayer); // REFACTOR PLEASE
+                currentPlayer = SwitchedPlayers.Item1;
+                nextPlayer = SwitchedPlayers.Item2;
             }
 
 

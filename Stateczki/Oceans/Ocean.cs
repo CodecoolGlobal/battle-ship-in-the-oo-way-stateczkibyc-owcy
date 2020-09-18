@@ -95,7 +95,7 @@ namespace Stateczki.Oceans
             }
         }
 
-        public bool CheckWin()
+        public bool CheckLoose()
         {
             foreach (var ship in Ships)
             {
